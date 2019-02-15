@@ -2,6 +2,31 @@
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
+#### 二十九、按照奇偶对数组排序：sort-array-by-parity.js
+给定一个非负整数数组 `A`， `A` 中一半整数是奇数，一半整数是偶数。
+对数组进行排序，以便当 `A[i]` 为奇数时，`i` 也是奇数；当 `A[i]` 为偶数时， `i` 也是偶数。
+```js
+// 输入：[4,2,5,7]
+// 输出：[4,5,2,7]
+// 解释：[4,7,2,5]，[2,5,4,7]，[2,7,4,5] 也会被接受。
+var sortArrayByParity = function(A) {
+  let j = 1;
+  let len = A.length - 1;
+  for(let i = 0; i < len; i += 2) {
+      if((A[i] & 1) !== 0) {
+          while((A[j] & 1) !== 0) {
+              j += 2;
+          }
+          let tmp = A[i];
+          A[i] = A[j];
+          A[j] = tmp;
+      }
+  }
+  return A;
+};
+sortArrayByParity([4,1,2,1]); //[4,1,2,1]
+```
+
 #### 二十八、删除子数组：delete-sub-array.js
 ```js
 function deleteSubArray(a, b){
