@@ -4,6 +4,8 @@ function fibonacci(n) {
   return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
+fibonacci(100) // 效率太低，会造成浏览器崩溃
+
 
 // 优化
 function fibonacci(n) {
