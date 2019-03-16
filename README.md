@@ -2,6 +2,27 @@
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一小部分来自`算法图解`，其余来自网络。
 
+
+#### 九、求数组最大值索引：max-index.js
+直接遍历，或者使用二分查找
+```js
+var peakIndexInMountainArray = function(A) {
+  let i = 0;
+  let tmp = 0;
+  while( i < A.length - 1) {
+      if(A[i] < A[i+1]) {
+          tmp = i+1;
+          i++;
+      } else {
+          return i;
+      }
+  }
+  return tmp;
+};
+peakIndexInMountainArray([0, 1, 0]); // 1
+```
+
+
 #### 八、求字符串最长子串：long-str.js
 ```js
 // 求字符串最长子串
