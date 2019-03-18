@@ -1,7 +1,26 @@
 ### 🍺🍺🍺 算法练习 🍺🍺🍺
 编程题练习，答案不一定准确，提供一些解决思路。
-算法题大部分来自 `LeetCode`，一小部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
+算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
+#### 十一、转义摩尔斯密码：morse-code.js
+```js
+// 转义摩尔斯密码
+let uniqueMorseRepresentations = function(words) {
+  let abc = 'abcdefghijklmnopqrstuvwxyz';
+  let morse = [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."];
+  let res = [];
+  for(let i = 0; i < words.length; i++) {
+      let str = '';
+      for(let j = 0; j < words[i].length; j++) {
+        str += morse[[...abc].indexOf(words[i][j])];
+      }
+      res.push(str);
+  }
+  
+  return new Set(res).size;
+};
+uniqueMorseRepresentations(["gin", "zen", "gig", "msg"]);
+```
 
 #### 十、合并两个二叉树：merge-tree.js
 合并的规则是如果两个节点重叠，那么将他们的值相加作为节点合并后的新值，否则不为 `NULL` 的节点将直接作为新二叉树的节点。
