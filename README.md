@@ -2,6 +2,38 @@
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
+#### 三十、N 叉树的前序遍历：tree-pre-order.js
+给定一个 `N` 叉树，返回其节点值的前序遍历。
+```js
+/**
+ * // Definition for a Node.
+ * function Node(val,children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+/**
+ * @param {Node} root
+ * @return {number[]}
+ */
+var preorder = function(root) {
+  if(!root) return [];
+  let res = [];
+  let list = [root];
+  while(list.length) {
+      let one = list.pop();
+      res.push(one.val);
+      one.children && one.children.reduceRight((pre, item) => {
+          list.push(item);
+          return list;
+      },list);
+  }
+  return res;
+};
+
+preorder({"$id":"1","children":[{"$id":"2","children":[{"$id":"5","children":[],"val":5},{"$id":"6","children":[],"val":6}],"val":3},{"$id":"3","children":[],"val":2},{"$id":"4","children":[],"val":4}],"val":1});
+```
+
 #### 二十九、按照奇偶对数组排序：sort-array-by-parity.js
 给定一个非负整数数组 `A`， `A` 中一半整数是奇数，一半整数是偶数。
 对数组进行排序，以便当 `A[i]` 为奇数时，`i` 也是奇数；当 `A[i]` 为偶数时， `i` 也是偶数。
@@ -70,7 +102,7 @@ function getOrderList(array, key1, key2) {
     return a[key1] < b[key1] ? 1 : (a[key1] === b[key1] ? (a[key2] < b[key2] ? 1 : -1) : -1);
   });
 }
-getOrderList(arr, 'date', 'score’)
+getOrderList(arr, 'date', 'score')
 ```
 
 #### 二十六、快速排序：quick-sort.js
