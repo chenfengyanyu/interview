@@ -2,6 +2,93 @@
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
+#### 三十三、N 叉树的后序遍历
+给定一个 N 叉树，返回其节点值的后序遍历。给定数据结构：
+```json
+{
+  "$id":"1",
+  "children":[
+    {
+      "$id":"2",
+      "children":[
+        {
+          "$id":"5",
+          "children":[],
+          "val":5
+        },
+        {
+          "$id":"6",
+          "children":[],
+          "val":6
+        }
+      ],
+      "val":3
+    }, {
+      "$id":"3",
+      "children":[],
+      "val":2
+    }, {
+      "$id":"4",
+      "children":[],
+      "val":4
+    }],
+    "val":1
+  }
+```
+思路一：先从跟节点遍历，然后对结果反转处理：
+```js
+/**
+ * // Definition for a Node.
+ * function Node(val,children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+/**
+ * @param {Node} root
+ * @return {number[]}
+ */
+let postorder = function(root) {
+    if(!root) return [];
+    let res = [];
+    let list = [root];
+    while(list.length) {
+        let one = list.pop();
+        res.push(one.val);
+        one.children && one.children.reduce((pre, item) => {
+            list.push(item);
+            return list;
+        },list);
+    }
+    return res.reverse();
+};
+```
+思路二：递归
+```js
+/**
+ * // Definition for a Node.
+ * function Node(val,children) {
+ *    this.val = val;
+ *    this.children = children;
+ * };
+ */
+/**
+ * @param {Node} root
+ * @return {number[]}
+ */
+let res = [];
+var postorder = function(root) {
+    if(!root) {
+        return [];
+    } else {
+        return root.children.reduceRight((res, node) => 
+            [...postorder(node), ...res],
+            [root.val]
+        )                              
+    }
+};
+```
+
 #### 三十二、判断机器人移动
 1.在二维平面上，有一个机器人从原点 (0, 0) 开始。给出它的移动顺序，判断这个机器人在完成移动后是否在 (0, 0) 处结束。
 2.移动顺序由字符串表示。字符 move[i] 表示其第 i 次移动。
