@@ -2,6 +2,49 @@
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
+#### 三十二、判断机器人移动
+1.在二维平面上，有一个机器人从原点 (0, 0) 开始。给出它的移动顺序，判断这个机器人在完成移动后是否在 (0, 0) 处结束。
+2.移动顺序由字符串表示。字符 move[i] 表示其第 i 次移动。
+3.机器人的有效动作有 R（右），L（左），U（上）和 D（下）。如果机器人在完成所有动作后返回原点，则返回 true。否则，返回 false。
+```js
+/**
+ * @param {string} moves
+ * @return {boolean}
+ */
+var robotMove = function(moves) {
+  let x = 0;
+  let y = 0;
+  [...moves].forEach(item => {
+      if(item === 'R') x++;
+      if(item === 'L') x--;
+      if(item === 'U') y++;
+      if(item === 'D') y--;
+  })
+  
+  return x === 0 && y === 0
+};
+```
+
+#### 三十一、实现 toLocaleLowerCase 函数
+```js
+/**
+ * @param {string} str
+ * @return {string}
+ */
+var toLowerCase = function(str) {
+    let result = [];
+    for(let i=0;i<str.length;i++) {
+        if(str[i] >= 'A' && str[i] <= 'Z') {
+            let num = str.charCodeAt(i);
+            result.push(String.fromCharCode(num + 32));
+        } else {
+            result.push(str[i]);
+        }
+    }
+    return result.join('');
+};
+```
+
 #### 三十、N 叉树的前序遍历：tree-pre-order.js
 给定一个 `N` 叉树，返回其节点值的前序遍历。
 ```js
