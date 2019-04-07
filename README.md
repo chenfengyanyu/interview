@@ -2,6 +2,27 @@
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
+#### 三十四、最长公共前缀
+编写一个函数来查找字符串数组中的最长公共前缀。
+```js
+/**
+ * @param {string[]} strs
+ * @return {string}
+ */
+var longestCommonPrefix = function(strs) {
+    if(strs.length === 0) return '';
+    let result = '';
+    let len = Math.min.apply(Math, strs.map(item => item.length));
+    for(let i = 0; i < len; i++) {
+        let tmp = strs.map(item => item.substring(0, i+1));
+        if (new Set(tmp).size === 1) result = tmp[0];
+    }
+    return result;
+};
+// 输入: ["flower","flow","flight"]
+// 输出: "fl"
+```
+
 #### 三十三、N 叉树的后序遍历
 给定一个 N 叉树，返回其节点值的后序遍历。给定数据结构：
 ```json
