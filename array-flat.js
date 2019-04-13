@@ -32,3 +32,13 @@ function flatten(arr){
 }
 
 flatten([1, 2, 3, 4, [5, 6], 7]);
+
+// 通过 toString
+function flatten(arr){
+  return arr.toString().split(',').map(function(item){
+       return parseInt(item);
+   })
+}    
+
+flatten([1, 2, 3, 4, [5, 6], 7]);
+

@@ -2,6 +2,53 @@
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
+#### 三十七、数字转金额
+1.含小数控制
+```js
+function formatMoney(s, type) {  
+    if (/[^0-9\.]/.test(s))  
+        return "0";  
+    if (s == null || s == "")  
+        return "0";  
+    s = s.toString().replace(/^(\d*)$/, "$1.");  
+    s = (s + "00").replace(/(\d*\.\d\d)\d*/, "$1");  
+    s = s.replace(".", ",");  
+    var re = /(\d)(\d{3},)/;  
+    while (re.test(s))  
+        s = s.replace(re, "$1,$2");  
+    s = s.replace(/,(\d\d)$/, ".$1");  
+    if (type == 0) {// 不带小数位(默认是有小数位)
+        var a = s.split(".");  
+        if (a[1] == "00") {  
+            s = a[0];  
+        }  
+    }  
+    return s;  
+}  
+formatMoney('13222222',3)
+```
+2.字符串正则处理
+```js
+function format_number(n){  
+   var b=parseInt(n).toString();  
+   var len=b.length;  
+   if(len<=3){return b;}  
+   var r=len%3;  
+   return r>0?b.slice(0,r)+","+b.slice(r,len).match(/\d{3}/g).join(","):b.slice(r,len).match(/\d{3}/g).join(",");  
+ }  
+ format_number('4524324234');
+ ```
+ 3.正则
+ ```js
+var num='12345678';
+var str = num.replace(/\d(?=(?:\d{3})+\b)/g,'$&,');
+console.log(str); //"12,345,678"
+//扩展Number方法
+Number.prototype.toCurrencyString=function(){
+  return this.toFixed(2).replace(/\d(?=(?:\d{3})+\b)/g,'$&,'); 
+}
+```
+
 #### 三十六、找出非降序数列的个数
 ```js
 /**
@@ -466,7 +513,18 @@ stringCount('aabbbc'); // "出现最多的字符是：b，共出现 3 次"
 
 #### 十九、求根号值：sqrt.js
 ```js
+function sqrtNum(num) {
+    let x1 = num;
+    let x2 = num / 2;
+    while(Math.abs(x1 - x2) > 0.00000001)
+    {
+        x1 = x2;
+        x2 = (x1 + num / x1) / 2;
+    }
+    return x1;
+}
 
+sqrtNum(2); // 1.4142135623746899
 ```
 
 #### 十八、对0，1，2简单数组进行高效排序：sort-on.js
@@ -933,6 +991,16 @@ function flatten(arr){
   }
   return arr;
 }
+
+flatten([1, 2, 3, 4, [5, 6], 7]);
+```
+4.通过 `toString`
+```js
+function flatten(arr){
+  return arr.toString().split(',').map(function(item){
+       return parseInt(item);
+   })
+}    
 
 flatten([1, 2, 3, 4, [5, 6], 7]);
 ```
