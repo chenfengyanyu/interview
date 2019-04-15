@@ -2,6 +2,43 @@
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
+#### 三十六、找出非降序数列的个数
+```js
+/**
+ * @param {string[]} A
+ * @return {number}
+ */
+var minDeletionSize = function(A) {
+    let count = 0;
+    for(let i = 0; i < A[0].length; i++) {
+        for(let j = 0; j < A.length - 1; j++) {
+            if(A[j].charAt(i) > A[j+1].charAt(i)) {
+                count++;
+                break;
+            }
+        }
+    }
+    return count;
+};
+输入：["cba", "daf", "ghi"]
+输出：1
+```
+
+#### 三十五、搜索二叉树
+```js
+var searchBST = function(root, val) {
+  if(!root) return null;
+  // console.log(root);
+  if(root.val === val) {
+      return root;
+  } else if(root.val > val) {
+      return searchBST(root.left, val);
+  } else {
+      return searchBST(root.right, val);
+  }
+};
+```
+
 #### 三十四、最长公共前缀
 编写一个函数来查找字符串数组中的最长公共前缀。
 ```js
