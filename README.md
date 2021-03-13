@@ -2,7 +2,117 @@
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
-#### 三十七、数字转金额
+#### 41、求两个数组中元素的和等于定值的组合
+例如数组1：[1, 6, 2, 3, 5, 9]，数组2：[2, 8, 4, 5, 1]，求等于和等于10的组合；
+
+方式一：穷举，O(N^2)
+```js
+const sumTarget = (arr1, arr2, target) => {
+    let temp = [];
+    arr1.forEach(element => {
+        arr2.forEach(item => {
+            if (element + item === target) {
+                temp.push([element, item]);
+            }
+        })
+    });
+    return temp;
+}
+sumTarget([1, 6, 2, 3, 5, 9], [2, 8, 4, 5, 1], 10);
+```
+
+方式二：排序 O(NlogN)，遍历复杂度为O(N)
+```js
+const sumTarget2 = (arr1, arr2, target) => {
+    let temp = arr1.concat(arr2).sort((a, b) => a - b);
+    let left = 0;
+    let right = temp.length - 1;
+
+    let result = [];
+    while (left < right) {
+        if (temp[left] + temp[right] > target) {
+            right--;
+        } else if (temp[left] + temp[right] < target) {
+            left++;
+        } else {
+            result.push([temp[left], temp[right]]);
+            left++;
+            right--;
+        }
+    }
+    return result;
+}
+
+sumTarget2([1, 6, 2, 3, 5, 9], [2, 8, 4, 5, 1], 10);
+```
+
+#### 40、最少硬币个数
+给定不同面额的硬币和一个总金额。编写一个函数来计算可以凑成总金额所需的最少的硬币个数，如果没有任何一种硬币组合能组成总金额，则返回 -1，示例如下：
+```
+输入：coins = [1, 2, 5], amount = 11
+输出：3
+解释：11 = 5 + 5 + 1
+
+输入：coins = [2], amout = 3
+输出：-1
+```
+说明：我们可以认为每种硬币的数量是无限的。
+
+#### 39、给定一个数组，找到丢失的一个数
+```java
+public class FindMissingNumber {
+
+    public static void main(String[] args) {
+        int[] nums = { 1, 2, 3, 4, 5, 6,  8, 9, 10,
+                11, 12, 13, 14, 15, 16,17, 18, 19, 20,
+                21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 
+                31, 32, 33, 34, 35, 36, 37, 38, 39, 40,
+                41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+                51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 
+                61, 62, 63, 64,65, 66, 67, 68, 69, 70, 
+                71, 72, 73, 74, 75, 76, 77, 78, 79, 80,
+                81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 
+                91, 92, 93, 94, 95, 96,97, 98, 99, 100 };
+
+        System.out.println(findMissingNumber(nums));
+
+    }
+
+    public static int findMissingNumber(int[] nums) {
+        int n = nums.length;
+        int sum = (n+1) * (n+2)/2;
+        int otherSum = 0;
+        for (int i : nums) {
+            otherSum += i;
+        }
+        
+        return sum-otherSum;
+    }
+
+}
+```
+
+#### 38、在数组中找出和为目标值的那两个整数，并返回他们的数组下标
+示例如下：
+```
+输入：nums = [2, 7, 11, 15], target = 9 
+输出：[0, 1]
+解释：nums[0] + nums[1] = 2 + 7 = 9
+```
+代码如下：
+```
+var twoSum = function(nums, target) {
+  var map = new Map();
+  for (var i = 0; i < nums.length; i++) {
+      if (map.has(nums[i]) && map.get(target-nums[i]) !== i) {
+          return [map.get(nums[i]), i];
+      }
+      map.set(target-nums[i], i);
+  }
+};
+```
+
+#### 37、数字转金额
 1.含小数控制
 ```js
 function formatMoney(s, type) {  
@@ -49,7 +159,7 @@ Number.prototype.toCurrencyString=function(){
 }
 ```
 
-#### 三十六、找出非降序数列的个数
+#### 36、找出非降序数列的个数
 ```js
 /**
  * @param {string[]} A
@@ -71,7 +181,7 @@ var minDeletionSize = function(A) {
 输出：1
 ```
 
-#### 三十五、搜索二叉树
+#### 35、搜索二叉树
 ```js
 var searchBST = function(root, val) {
   if(!root) return null;
@@ -86,7 +196,7 @@ var searchBST = function(root, val) {
 };
 ```
 
-#### 三十四、最长公共前缀
+#### 34、最长公共前缀
 编写一个函数来查找字符串数组中的最长公共前缀。
 ```js
 /**
@@ -107,7 +217,7 @@ var longestCommonPrefix = function(strs) {
 // 输出: "fl"
 ```
 
-#### 三十三、N 叉树的后序遍历
+#### 33、N 叉树的后序遍历
 给定一个 N 叉树，返回其节点值的后序遍历。给定数据结构：
 ```json
 {
@@ -194,7 +304,7 @@ var postorder = function(root) {
 };
 ```
 
-#### 三十二、判断机器人移动
+#### 32、判断机器人移动
 1.在二维平面上，有一个机器人从原点 (0, 0) 开始。给出它的移动顺序，判断这个机器人在完成移动后是否在 (0, 0) 处结束。
 2.移动顺序由字符串表示。字符 move[i] 表示其第 i 次移动。
 3.机器人的有效动作有 R（右），L（左），U（上）和 D（下）。如果机器人在完成所有动作后返回原点，则返回 true。否则，返回 false。
@@ -217,7 +327,7 @@ var robotMove = function(moves) {
 };
 ```
 
-#### 三十一、实现 toLocaleLowerCase 函数
+#### 31、实现 toLocaleLowerCase 函数
 ```js
 /**
  * @param {string} str
@@ -237,7 +347,7 @@ var toLowerCase = function(str) {
 };
 ```
 
-#### 三十、N 叉树的前序遍历：tree-pre-order.js
+#### 30、N 叉树的前序遍历：tree-pre-order.js
 给定一个 `N` 叉树，返回其节点值的前序遍历。
 ```js
 /**
@@ -269,7 +379,7 @@ var preorder = function(root) {
 preorder({"$id":"1","children":[{"$id":"2","children":[{"$id":"5","children":[],"val":5},{"$id":"6","children":[],"val":6}],"val":3},{"$id":"3","children":[],"val":2},{"$id":"4","children":[],"val":4}],"val":1});
 ```
 
-#### 二十九、按照奇偶对数组排序：sort-array-by-parity.js
+#### 29、按照奇偶对数组排序：sort-array-by-parity.js
 给定一个非负整数数组 `A`， `A` 中一半整数是奇数，一半整数是偶数。
 对数组进行排序，以便当 `A[i]` 为奇数时，`i` 也是奇数；当 `A[i]` 为偶数时， `i` 也是偶数。
 ```js
@@ -294,7 +404,7 @@ var sortArrayByParity = function(A) {
 sortArrayByParity([4,1,2,1]); //[4,1,2,1]
 ```
 
-#### 二十八、删除子数组：delete-sub-array.js
+#### 28、删除子数组：delete-sub-array.js
 ```js
 function deleteSubArray(a, b){
   for(var i = 0;i < a.length;i ++){
@@ -312,7 +422,7 @@ deleteSubArray([1,3,4], [4,2]); // [1, 3]
 
 ```
 
-#### 二十七、数组按照 key1 进行排序，再按照 key2 进行排序：sort-key1-key2.js
+#### 27、数组按照 key1 进行排序，再按照 key2 进行排序：sort-key1-key2.js
 如下，先按照日期进行排序，如果日期相同，则按照分数降序排序。
 ```js
 const arr = [{
@@ -340,7 +450,7 @@ function getOrderList(array, key1, key2) {
 getOrderList(arr, 'date', 'score')
 ```
 
-#### 二十六、快速排序：quick-sort.js
+#### 26、快速排序：quick-sort.js
 ```js
 function quicksort(arr)
 {
