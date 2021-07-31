@@ -2,6 +2,51 @@
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
+#### 42、斜向打印二维数组
+```
+# 例如, 给定如下二维数组
+# [1, 2, 3],
+# [4, 5, 6],
+# [7, 8, 9]
+# 输出结果：[1, 2, 4, 3, 5, 7, 6, 8, 9]
+```
+
+```js
+const printArray = (arr) => {
+  let result = [];
+  let len = arr.length;
+  let inity = 0;
+  if (!Array.isArray(arr)) return;
+  // 00,10,01,20,11,02,12,21,22
+  for (let i = 0; i < len;) {
+    let initx = i;
+    let j = inity;
+
+    while (arr[j] && arr[j][initx]) {
+      result.push(arr[j][initx]);
+      initx--;
+      j++;
+    }
+
+    if(i+1 < len){
+      i++;
+    } else {
+      inity++;
+      if(inity >= len) {
+        break;
+      }
+    }
+  }
+  return result;
+}
+
+printArray([
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9]
+]);
+```
+
 #### 41、求两个数组中元素的和等于定值的组合
 例如数组1：[1, 6, 2, 3, 5, 9]，数组2：[2, 8, 4, 5, 1]，求等于和等于10的组合；
 
@@ -100,7 +145,7 @@ public class FindMissingNumber {
 解释：nums[0] + nums[1] = 2 + 7 = 9
 ```
 代码如下：
-```
+```js
 var twoSum = function(nums, target) {
   var map = new Map();
   for (var i = 0; i < nums.length; i++) {
