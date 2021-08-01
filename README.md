@@ -2,6 +2,34 @@
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
+<!-- #### 47、用二分法移除掉一个字符串中所有的字母字符
+
+
+
+#### 46、字符串消消乐
+
+
+#### 45、实现 Promise 方法
+
+
+#### 44、实现防抖、节流函数 -->
+
+
+#### 43、实现 New 函数
+```js
+function newFun() {
+  let obj = {};
+  //shift方法去除数组第一个元素，并返回
+  let constru = [].shift.call(arguments);
+  //实例的隐式原型指向构造函数原型
+  obj.__proto__ = constru.prototype;
+  //使用 apply，改变构造函数 this 的指向到新建的对象，这样 obj 就可以访问到构造函数中的属性
+  constru.apply(obj, arguments);
+  //返回该对象
+  return obj;
+}
+```
+
 #### 42、斜向打印二维数组
 ```
 # 例如, 给定如下二维数组
