@@ -1,13 +1,33 @@
 ### 🍺🍺🍺 算法练习 🍺🍺🍺
 编程题练习，答案不一定准确，提供一些解决思路。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
-<!-- 
+
+#### 48、js 实现 reduce
+
+
 #### 47、用二分法移除掉一个字符串中所有的字母字符
 
 
+#### 46、字符串消消乐
 
-#### 46、字符串消消乐 -->
-
+#### 46、JS 实现单例模式
+```js
+class Singleton {
+  constructor(name) {
+      this.name = name;
+      this.instance = null;
+  }
+  static getInstance(name) {
+      if(!this.instance) {
+          this.instance = new Singleton(name);
+      }
+      return this.instance;
+  }
+}
+const oA = Singleton.getInstance('hi');
+const oB = Singleton.getInstance('hello');
+console.log(oA===oB);
+```
 
 #### 45、实现 Promise 方法
 实现 Promise 大致思路，细节请参考[Promise 源码](https://www.jianshu.com/p/43de678e918a)
