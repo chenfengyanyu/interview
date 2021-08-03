@@ -3,12 +3,44 @@
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
 #### 48、js 实现 reduce
+先看看 reduce 的用法：
+```js
+// prev：初始值, 或者计算结束后的返回值。
+// cur：当前元素。
+// index：当前元素的索引。
+// arr：当前元素所属的数组对象。
+arr.reduce(function(prev, cur, index, arr){
+  // todo
+}, initialValue)
+```
+通过 js 实现 reduce：
+```js
+// 对数组对象进行扩展
+Array.prototype.reduce = Array.prototype.reduce || function(func, initVal) {
+  let arr = this;
+  // 设置起始值
+  let base = typeof initVal === 'undefined' ? arr[0] : initVal;
+  // 设置起始位置
+  let startPoint = typeof initVal === 'undefined' ? 1 : 0;
+  arr.slice(startPoint).forEach(function(val, index) {
+    base = func(base, val, index + startPoint, arr);
+  })
+  return base
+}
 
+// 用例
+let arr = [1,2,3,4];
+arr.reduce((prev, cur, index, arr) => {
+  console.log(prev, cur, index, arr);
+  return prev + cur;
+}, 10)
+```
 
 #### 47、用二分法移除掉一个字符串中所有的字母字符
 
 
 #### 46、字符串消消乐
+
 
 #### 46、JS 实现单例模式
 ```js
