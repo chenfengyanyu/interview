@@ -1,8 +1,104 @@
 ### 🍺🍺🍺 算法练习 🍺🍺🍺
-编程题练习，答案不一定准确，提供一些解决思路。
+编程题练习，答案不一定最优，仅仅提供一些解决思路（面试过程写出来是重中之重，其次是优化）。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
-#### 48、js 实现 reduce
+<!-- #### 55、求完美数
+对于一个正整数，如果它和除了它自身以外的所有正因子之和相等，我们称它为 「完美数」。
+要求：给定一个 整数 n， 如果是完美数，返回 true，否则返回 false
+js 实现
+```js
+
+
+```
+
+#### 53、实现一个 EventEmitter 类，要求包括：on\emit\off\once 方法
+
+
+#### 53、js 实现 bind 函数
+
+
+#### 52、js 实现 instanceof
+
+#### 51、用二分法移除掉一个字符串中所有的字母字符
+
+
+#### 50、字符串消消乐 -->
+
+
+#### 49、字符串转驼峰
+将 “my-js-code” 按照驼峰格式输出：“myJsCode”
+```js
+// 普通方式
+function covertHump(str) {
+  if(!str) return;
+  let arr = str.split('-');
+  for(let i=1;i< arr.length;i++){
+    arr[i] = arr[i].charAt(0).toUpperCase() + arr[i].substring(1);
+  }
+  return arr.join('');
+}
+
+covertHump('my-js-code');
+
+// 正则方式
+function covertHump2(str) {
+  let reg = /-(\w)/g;
+  return str.replace(reg, ($0, $1) => $1.toUpperCase());
+}
+
+covertHump2('my-js-code');
+```
+
+#### 48、求字符串最长子串
+给定一个字符串 s ，请你找出其中不含有重复字符的 最长子串 的长度。[力扣](https://leetcode-cn.com/problems/longest-substring-without-repeating-characters)
+```
+示例 1:
+
+输入: s = "abcabcbb"
+输出: 3 
+解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
+示例 2:
+
+输入: s = "bbbbb"
+输出: 1
+解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
+示例 3:
+
+输入: s = "pwwkew"
+输出: 3
+解释: 因为无重复字符的最长子串是 "wke"，所以其长度为 3。
+     请注意，你的答案必须是 子串 的长度，"pwke" 是一个子序列，不是子串。
+示例 4:
+
+输入: s = ""
+输出: 0
+```
+js 实现：
+```js
+function longStr(str) {
+  if (!str) {
+    console.log('请输入参数！');
+    return;
+  }
+  let maxLen = 0;
+  let tmp = '';
+  for (let val of str) {
+    // 拿到字符串中相同字符的索引
+    let index = tmp.indexOf(val);
+    // 滑动窗口后移
+    tmp = tmp.substring(index + 1) + val;
+    // 总是拿出最长的
+    maxLen = Math.max(maxLen, tmp.length);
+  }
+  return maxLen;
+}
+
+console.log(longStr('abcabcbb')); // 3
+console.log(longStr('bbbbb')); // 1
+console.log(longStr('pwwkew')); // 3
+```
+
+#### 47、js 实现 reduce
 先看看 reduce 的用法：
 ```js
 // prev：初始值, 或者计算结束后的返回值。
@@ -35,11 +131,6 @@ arr.reduce((prev, cur, index, arr) => {
   return prev + cur;
 }, 10)
 ```
-
-#### 47、用二分法移除掉一个字符串中所有的字母字符
-
-
-#### 46、字符串消消乐
 
 
 #### 46、JS 实现单例模式
@@ -318,6 +409,10 @@ sumTarget2([1, 6, 2, 3, 5, 9], [2, 8, 4, 5, 1], 10);
 输出：-1
 ```
 说明：我们可以认为每种硬币的数量是无限的。
+
+用 js 实现：
+```js
+```
 
 #### 39、给定一个数组，找到丢失的一个数
 ```java
