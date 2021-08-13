@@ -114,38 +114,8 @@ console.log(myEval('{name: "jartto"}')); // {name: "jartto"}
 #### 50、数组项拼接，求最小数
 一个整数的数组，所有的数链接组合起来输出一个最小的数，例如：[1, 10, 23]，结果：10123
 ```js
-// 实现数组全排列
-function permutationArray(arr) {
-  if (!Array.isArray(arr)) {
-    console.error('请输入数组类型参数！');
-    return;
-  }
-  let len = arr.length;
-  if (len === 1) {
-    return arr;
-  } else if(len === 2) {
-    return [[arr[0],arr[1]],[arr[1],arr[0]]];
-  } else {
-    let tempArr = [];
-    for (let i = 0; i < len; i++) {
-      let save = arr[i];
-      // 取 arr[i]
-      arr.splice(i, 1);
-      // 递归排列arr[0],arr[1],...,arr[i-1],arr[i+1],...,arr[n]
-      let result = permutationArray(arr);
-      // 将 arr[j] 放入数组，保持原来的位置
-      arr.splice(i, 0, save);
-      for (let j = 0; j < result.length; j++) {
-        result[j].push(arr[i]);
-        // 将 arr[j] 拼起来起来
-        tempArr.push(result[j].join(''));
-      }
-    }
-    return tempArr.sort();
-  }
-}
+// 方式一：数组进行全排列，比较得出最小项
 
-console.log(permutationArray([1, 2, 3])); // ['123','132','213','231','321','312']
 ```
 
 #### 49、字符串转驼峰
