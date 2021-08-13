@@ -2,7 +2,8 @@
 编程题练习，答案不一定最优，仅仅提供一些解决思路（面试过程写出来是重中之重，其次是优化）。
 算法题大部分来自 `LeetCode`，一部分来自`算法图解`，一部分来自`剑指 Offer`， 其余来自网络。
 
-<!-- #### 55、求完美数
+<!-- 
+#### 55、求完美数
 对于一个正整数，如果它和除了它自身以外的所有正因子之和相等，我们称它为 「完美数」。
 要求：给定一个 整数 n， 如果是完美数，返回 true，否则返回 false
 js 实现
@@ -11,19 +12,141 @@ js 实现
 
 ```
 
-#### 53、实现一个 EventEmitter 类，要求包括：on\emit\off\once 方法
-
-
-#### 53、js 实现 bind 函数
-
-
-#### 52、js 实现 instanceof
-
 #### 51、用二分法移除掉一个字符串中所有的字母字符
 
 
 #### 50、字符串消消乐 -->
 
+<!-- 请用JS实现Ajax并发请求控制
+https://bbs.huaweicloud.com/blogs/detail/236825 -->
+
+<!-- 实现一个LazyMan，可以按照以下方式调用:
+LazyMan(“Hank”)输出:
+Hi! This is Hank!
+
+LazyMan(“Hank”).sleep(10).eat(“dinner”)输出
+Hi! This is Hank!
+//等待10秒..
+Wake up after 10
+Eat dinner~
+
+LazyMan(“Hank”).eat(“dinner”).eat(“supper”)输出
+Hi This is Hank!
+Eat dinner~
+Eat supper~
+
+LazyMan(“Hank”).sleepFirst(5).eat(“supper”)输出
+//等待5秒
+Wake up after 5
+Hi This is Hank!
+Eat supper
+
+以此类推。 https://www.136.la/shida/show-376445.html-->
+
+<!-- es6 的 extend 实现 -->
+<!-- #### 52、js 实现 instanceof -->
+<!-- #### 53、实现一个 EventEmitter 类，要求包括：on\emit\off\once 方法
+
+
+#### 53、js 实现 bind 函数 -->
+
+
+#### 52、实现数组全排列
+实现数组全排列，例如：输入[1, 2, 3]，输出：['123','132','213','231','321','312']
+```js
+
+function permutationArray(arr) {
+  if (!Array.isArray(arr)) {
+    console.error('请输入数组类型参数！');
+    return;
+  }
+  let len = arr.length;
+  if (len === 1) {
+    return arr;
+  } else if(len === 2) {
+    return [[arr[0],arr[1]],[arr[1],arr[0]]];
+  } else {
+    let tempArr = [];
+    for (let i = 0; i < len; i++) {
+      let save = arr[i];
+      // 取 arr[i]
+      arr.splice(i, 1);
+      // 递归排列arr[0],arr[1],...,arr[i-1],arr[i+1],...,arr[n]
+      let result = permutationArray(arr);
+      // 将 arr[j] 放入数组，保持原来的位置
+      arr.splice(i, 0, save);
+      for (let j = 0; j < result.length; j++) {
+        result[j].push(arr[i]);
+        // 将 arr[j] 拼起来起来
+        tempArr.push(result[j].join(''));
+      }
+    }
+    return tempArr.sort();
+  }
+}
+
+console.log(permutationArray([1, 2, 3])); // ['123','132','213','231','312','321']
+```
+
+#### 51、实现计算方法 eval('1+3×4')
+实现计算方法 eval('1+3*4')？
+JS 实现如下：
+```js
+// eval()是一个函数，有且只有一个参数string，为字符串类型;
+// 若string为js代码时，会直接解析执行，若是普通字符串，则返回原字符串。
+function myEval(str) {
+  let temp;
+  try {
+    temp = new Function('return ' + str)();
+  } catch(e) {
+    // 无法判断是“正常字符串”还是“可执行字符串”，因此使用异常捕获处理，有更好的方案欢迎交流～
+    if(e.stack?.indexOf('ReferenceError') > -1) temp = str;
+  }
+  return temp;
+}
+
+console.log(myEval('1+3*4')); // 13
+console.log(myEval('hi, jartto')); // "hi, jartto"
+console.log(myEval('[1,2,3]')); // [1,2,3]
+console.log(myEval('{name: "jartto"}')); // {name: "jartto"}
+```
+
+#### 50、数组项拼接，求最小数
+一个整数的数组，所有的数链接组合起来输出一个最小的数，例如：[1, 10, 23]，结果：10123
+```js
+// 实现数组全排列
+function permutationArray(arr) {
+  if (!Array.isArray(arr)) {
+    console.error('请输入数组类型参数！');
+    return;
+  }
+  let len = arr.length;
+  if (len === 1) {
+    return arr;
+  } else if(len === 2) {
+    return [[arr[0],arr[1]],[arr[1],arr[0]]];
+  } else {
+    let tempArr = [];
+    for (let i = 0; i < len; i++) {
+      let save = arr[i];
+      // 取 arr[i]
+      arr.splice(i, 1);
+      // 递归排列arr[0],arr[1],...,arr[i-1],arr[i+1],...,arr[n]
+      let result = permutationArray(arr);
+      // 将 arr[j] 放入数组，保持原来的位置
+      arr.splice(i, 0, save);
+      for (let j = 0; j < result.length; j++) {
+        result[j].push(arr[i]);
+        // 将 arr[j] 拼起来起来
+        tempArr.push(result[j].join(''));
+      }
+    }
+    return tempArr.sort();
+  }
+}
+
+console.log(permutationArray([1, 2, 3])); // ['123','132','213','231','321','312']
+```
 
 #### 49、字符串转驼峰
 将 “my-js-code” 按照驼峰格式输出：“myJsCode”
